@@ -1,0 +1,50 @@
+<div class="card">
+  <div class="card-header">
+    <h3>Dropdown Form Control </h3>
+  </div>
+  <div class="card-body">
+    <form #dropdownForm="ngForm">
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="firstName">First Name</label>
+          <input type="text" id="firstName" class="form-control" ngModel name="fName" required #Fn="ngModel">
+          <span class="text-danger" *ngIf="!Fn.valid && Fn.touched">*First Name is required</span>
+        </div>
+        <div class="form-group col-md-6">
+          <label for="lastName">Last Name</label>
+          <input type="text" id="lastName" class="form-control" ngModel name="lName" required #ln="ngModel">
+          <span class="text-danger" *ngIf="!ln.valid && ln.touched">Last name is required</span>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="contact">How Should we contact you?</label>
+          <select class="form-control" ngModel name="contact" #option (change)="onSelected(option.value)" required>
+            <option value="" selected disabled>Choose Option</option>
+            <option>Phone</option>
+            <option>Email</option>
+          </select>
+        </div>
+        <ng-container *ngIf="option.value == 'Phone'">
+          <div class="form-group col-md-6">
+            <label for="phone">Phone Number</label>
+            <input type="text" id="phone" class="form-control" minlength="10" ngModel name="phone" required #phn="ngModel">
+            <span class="text-danger" *ngIf="!phn?.valid && phn?.touched">
+              <ng-container *ngIf="phn?.errors?.['required']">*Contact number is required</ng-container>
+              <ng-container *ngIf="phn?.errors?.['minlength']">*contact number length should be 10
+                <span>Please add {{phn?.errors?.['minlength']?.requiredLength - phn?.errors?.['minlength']?.actualLength}} more numbers</span>
+              </ng-container>
+            </span>
+          </div>
+        </ng-container>
+        <ng-container ng-container *ngIf="option.value == 'Email'">
+          <div class="form-group col-md-6">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" class="form-control" ngModel name="email" required>
+            <span class="text-danger" *ngIf="!dropdownForm.controls['email']?.valid && dropdownForm.controls['email']?.touched">*Email is required</span>
+          </div>
+        </ng-container>
+      </div>
+    </form>
+  </div>
+</div>

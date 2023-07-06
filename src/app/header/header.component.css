@@ -1,0 +1,6 @@
+.nav-item.active{
+  border-bottom: 5px solid #fc3030;
+  border-radius: 10px;
+  background-color: black;
+}
+
